@@ -1,9 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {DocumentBuilder, SwaggerModule} from '@nestjs/swagger';
+import {DispatchError} from './common/filters/DispatchError';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalFilters(new DispatchError());
   const options = new DocumentBuilder()
         .setTitle('User Session Tutorial')
         .setDescription('Basic Auth and session management')
